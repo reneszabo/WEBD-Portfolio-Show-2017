@@ -1,0 +1,14 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /Users/alisonhall/.nvm/versions/node/v4.5.0/bin/node /Users/alisonhall/.nvm/versions/node/v4.5.0/bin/firebase serve
+[debug] CLI Version:  3.2.1
+[debug] Platform:     darwin
+[debug] Node Version: v4.5.0
+[debug] Time:         Mon Jan 30 2017 09:49:16 GMT-0500 (EST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/alisonhall/Sites/WEBD 352 Portfolio/Projects/WEBD Portfolio Show 2017/admin
+[info] Public Directory: ./
+[info] 
+[info] Server listening at: http://localhost:5000
