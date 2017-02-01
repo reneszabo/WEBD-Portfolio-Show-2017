@@ -9,6 +9,20 @@ var config = {
 firebase.initializeApp(config);
 
 
+var mapDataNames = [
+	// [ HTML element ID name, Firebase key name ]
+	['first-name', 'firstName'],
+	['last-name', 'lastName'],
+	['photo-URL', 'photoURL'],
+	['introduction', 'introduction'],
+	['skill-set', 'skillSet'],
+	['portfolio-link', 'portfolioLink'],
+	['official-email', 'officialEmail'],
+	['social-media-1', 'socialMedia1'],
+	['social-media-2', 'socialMedia2'],
+	['social-media-3', 'socialMedia3']
+];
+
 /**
  * Handles the sign in button press.
  */
@@ -119,6 +133,101 @@ function sendPasswordReset() {
 	// [END sendpasswordemail];
 }
 
+function getData() {
+	console.log("getData");
+	// Create references
+
+	var currentUserId = firebase.auth().currentUser.uid;
+
+	if(currentUserId == 'admin'){
+		console.log("Admin");
+		firebase.database().ref('/users/').on('value', function(snapshot) {
+			var data = snapshot.val();
+			// document.getElementById('account-details').textContent = JSON.stringify(data, null, '  ');
+
+			console.log(data);
+		});
+	} else {
+		console.log("regular user");
+		firebase.database().ref('/users/' + currentUserId).on('value', function(snapshot) {
+			console.log(snapshot.val());
+			if(snapshot.val() !== null) {
+				for (var i = 0; i < mapDataNames.length; i++) {
+					var elementName = mapDataNames[i][0];
+					var firebaseName = mapDataNames[i][1];
+					var data = snapshot.val()[firebaseName];
+					if(data !== undefined) {
+						document.getElementById(elementName).value = data;
+					}
+				}
+			}
+		});
+	}
+}
+
+function saveData() {
+	console.log("saveData");
+
+	var currentUserId = firebase.auth().currentUser.uid;
+
+	if(currentUserId == 'admin') {
+		console.log("Admin");
+		firebase.database().ref('/users/').on('value', function(snapshot) {
+			var data = snapshot.val();
+			// document.getElementById('account-details').textContent = JSON.stringify(data, null, '  ');
+
+			console.log(data);
+		});
+	} else {
+		console.log("regular user");
+		firebase.database().ref('/users/' + currentUserId).on('value', function(snapshot) {
+			console.log(snapshot.val());
+			if(snapshot.val() !== null) {
+				var userData = {};
+				for (var i = 0; i < mapDataNames.length; i++) {
+					var elementName = mapDataNames[i][0];
+					var firebaseName = mapDataNames[i][1];
+					var data = document.getElementById(elementName).value;
+					if(data !== undefined) {
+						userData[firebaseName] = data;
+					}
+				}
+				var updates = {};
+				updates['/users/' + currentUserId] = userData;
+
+				return firebase.database().ref().update(updates);
+			} else {
+				var userData = {};
+				for (var i = 0; i < mapDataNames.length; i++) {
+					var elementName = mapDataNames[i][0];
+					var firebaseName = mapDataNames[i][1];
+					var data = document.getElementById(elementName).value;
+					if(data !== undefined) {
+						userData[firebaseName] = data;
+					}
+				}
+				var newUserId = firebase.database().ref(/users/).push().currentUserId;
+				var updates = {};
+				updates['/users/' + newUserId] = userData;
+
+				return firebase.database().ref().update(updates);
+			}
+		});
+	}
+}
+
+function removeData() {
+	for (var i = 0; i < mapDataNames.length; i++) {
+		var elementName = mapDataNames[i][0];
+		document.getElementById(elementName).value = null;
+	}
+}
+
+function resetData() {
+	removeData();
+	getData();
+}
+
 /**
  * initApp handles setting up UI event listeners and registering Firebase auth listeners:
  *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -127,6 +236,8 @@ function sendPasswordReset() {
 function initApp() {
 	// Listening for auth state changes.
 	// [START authstatelistener]
+	console.log("initApp");
+
 	firebase.auth().onAuthStateChanged(function(user) {
 		// [START_EXCLUDE silent]
 		// document.getElementById('verify-email').disabled = true;
@@ -149,18 +260,8 @@ function initApp() {
 			// }
 			// [END_EXCLUDE]
 
-			// Create references
-			const dbRefUsers = firebase.database().ref().child('users');
 
-			// Sync object changes
-			dbRefUsers.on('value', function(snap) {
-				console.log(snap.val());
-			// dbRefUsers.on('value', snap => {
-			// 	console.log(snap.val());
-			// 	// document.getElementById('account-details').textContent = JSON.stringify(user, null, '  ');
-			// 	document.getElementById('account-details').textContent = snap.val();
-			});
-
+			getData();
 
 			
 
@@ -170,8 +271,11 @@ function initApp() {
 			// [START_EXCLUDE silent]
 			document.getElementById('sign-in-status').textContent = 'Signed out';
 			document.getElementById('sign-in').textContent = 'Sign in';
-			document.getElementById('account-details').textContent = 'null';
+			document.getElementById('current-user').textContent = "";
+			// document.getElementById('account-details').textContent = 'null';
 			// [END_EXCLUDE]
+
+			removeData();
 
 			document.getElementById('sign-up').disabled = false;
 		}
@@ -185,6 +289,9 @@ function initApp() {
 	document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
 	// document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
 	document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
+
+	document.getElementById('save-data').addEventListener('click', saveData, false);
+	document.getElementById('cancel').addEventListener('click', resetData, false);
 }
 
 window.onload = function() {
