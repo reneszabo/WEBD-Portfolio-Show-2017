@@ -8,6 +8,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var adminUser = 'WLvS4vczBzTdcON21xt2Qet8TVd2';
+
 
 var mapDataNames = [
 	// [ HTML element ID name, Firebase key name ]
@@ -35,11 +37,11 @@ function toggleSignIn() {
 		var email = document.getElementById('email').value;
 		var password = document.getElementById('password').value;
 		if (email.length < 4) {
-			alert('Please enter an email address.');
+			alert('Please enter your email address.');
 			return;
 		}
-		if (password.length < 4) {
-			alert('Please enter a password.');
+		if (password.length < 2) {
+			alert('Please enter your password.');
 			return;
 		}
 		// Sign in with email and pass.
@@ -48,7 +50,6 @@ function toggleSignIn() {
 			// Handle Errors here.
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			// [START_EXCLUDE]
 			if (errorCode === 'auth/wrong-password') {
 				alert('Wrong password.');
 			} else {
@@ -56,79 +57,28 @@ function toggleSignIn() {
 			}
 			console.log(error);
 			document.getElementById('sign-in').disabled = false;
-			// [END_EXCLUDE]
 		});
 		// [END authwithemail]
-	}
-	document.getElementById('sign-in').disabled = true;
-}
 
-/**
- * Handles the sign up button press.
- */
-function handleSignUp() {
-	var email = document.getElementById('email').value;
-	var password = document.getElementById('password').value;
-	if (email.length < 4) {
-		alert('Please enter an email address.');
-		return;
 	}
-	if (password.length < 4) {
-		alert('Please enter a password.');
-		return;
-	}
-	// Sign in with email and pass.
-	// [START createwithemail]
-	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-		// Handle Errors here.
-		var errorCode = error.code;
-		var errorMessage = error.message;
-		// [START_EXCLUDE]
-		if (errorCode == 'auth/weak-password') {
-			alert('The password is too weak.');
-		} else {
-			alert(errorMessage);
-		}
-		console.log(error);
-		// [END_EXCLUDE]
-	});
-	// [END createwithemail]
 }
-
-/**
- * Sends an email verification to the user.
- */
-// function sendEmailVerification() {
-// 	// [START sendemailverification]
-// 	firebase.auth().currentUser.sendEmailVerification().then(function() {
-// 		// Email Verification sent!
-// 		// [START_EXCLUDE]
-// 		alert('Email Verification Sent!');
-// 		// [END_EXCLUDE]
-// 	});
-// 	// [END sendemailverification]
-// }
 
 function sendPasswordReset() {
 	var email = document.getElementById('email').value;
 	// [START sendpasswordemail]
 	firebase.auth().sendPasswordResetEmail(email).then(function() {
 		// Password Reset Email Sent!
-		// [START_EXCLUDE]
 		alert('Password Reset Email Sent!');
-		// [END_EXCLUDE]
 	}).catch(function(error) {
 		// Handle Errors here.
 		var errorCode = error.code;
 		var errorMessage = error.message;
-		// [START_EXCLUDE]
 		if (errorCode == 'auth/invalid-email') {
 			alert(errorMessage);
 		} else if (errorCode == 'auth/user-not-found') {
 			alert(errorMessage);
 		}
 		console.log(error);
-		// [END_EXCLUDE]
 	});
 	// [END sendpasswordemail];
 }
@@ -136,10 +86,9 @@ function sendPasswordReset() {
 function getData() {
 	console.log("getData");
 	// Create references
-
 	var currentUserId = firebase.auth().currentUser.uid;
 
-	if(currentUserId == 'admin'){
+	if(currentUserId == adminUser){
 		console.log("Admin");
 		firebase.database().ref('/users/').on('value', function(snapshot) {
 			var data = snapshot.val();
@@ -151,6 +100,9 @@ function getData() {
 		console.log("regular user");
 		firebase.database().ref('/users/' + currentUserId).on('value', function(snapshot) {
 			console.log(snapshot.val());
+			document.getElementById('loading').style.display = 'none';
+			document.getElementById('account-details').style.display = 'block';
+
 			if(snapshot.val() !== null) {
 				for (var i = 0; i < mapDataNames.length; i++) {
 					var elementName = mapDataNames[i][0];
@@ -170,7 +122,7 @@ function saveData() {
 
 	var currentUserId = firebase.auth().currentUser.uid;
 
-	if(currentUserId == 'admin') {
+	if(currentUserId == adminUser) {
 		console.log("Admin");
 		firebase.database().ref('/users/').on('value', function(snapshot) {
 			var data = snapshot.val();
@@ -239,9 +191,6 @@ function initApp() {
 	console.log("initApp");
 
 	firebase.auth().onAuthStateChanged(function(user) {
-		// [START_EXCLUDE silent]
-		// document.getElementById('verify-email').disabled = true;
-		// [END_EXCLUDE]
 		if (user) {
 			// User is signed in.
 			var displayName = user.displayName;
@@ -251,47 +200,43 @@ function initApp() {
 			var isAnonymous = user.isAnonymous;
 			var uid = user.uid;
 			var providerData = user.providerData;
-			// [START_EXCLUDE silent]
-			document.getElementById('sign-in-status').textContent = 'Signed in';
-			document.getElementById('sign-in').textContent = 'Sign out';
-			document.getElementById('current-user').textContent = email;
-			// if (!emailVerified) {
-			// 	document.getElementById('verify-email').disabled = false;
-			// }
-			// [END_EXCLUDE]
 
+			document.getElementById('sign-in-container').style.display = 'none';
+			document.getElementById('signed-in-container').style.display = 'block';
+			document.getElementById('user-details-container').style.display = 'block';
+			document.getElementById('loading').style.display = 'none';
+			document.getElementById('account-details').style.display = 'block';
+
+			document.getElementById('current-user').textContent = email;
 
 			getData();
 
 			
 
-			document.getElementById('sign-up').disabled = true;
 		} else {
 			// User is signed out.
-			// [START_EXCLUDE silent]
-			document.getElementById('sign-in-status').textContent = 'Signed out';
-			document.getElementById('sign-in').textContent = 'Sign in';
-			document.getElementById('current-user').textContent = "";
-			// document.getElementById('account-details').textContent = 'null';
-			// [END_EXCLUDE]
+
+			document.getElementById('sign-in-container').style.display = 'block';
+			document.getElementById('signed-in-container').style.display = 'none';
+			document.getElementById('user-details-container').style.display = 'none';
+			document.getElementById('loading').style.display = 'block';
+			document.getElementById('account-details').style.display = 'none';
 
 			removeData();
 
-			document.getElementById('sign-up').disabled = false;
+			
 		}
-		// [START_EXCLUDE silent]
-		document.getElementById('sign-in').disabled = false;
-		// [END_EXCLUDE]
 	});
 	// [END authstatelistener]
 
-	document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
-	document.getElementById('sign-up').addEventListener('click', handleSignUp, false);
-	// document.getElementById('verify-email').addEventListener('click', sendEmailVerification, false);
-	document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
-
+	document.getElementById('sign-out').addEventListener('click', toggleSignIn, false);
 	document.getElementById('save-data').addEventListener('click', saveData, false);
 	document.getElementById('cancel').addEventListener('click', resetData, false);
+
+	document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+	document.getElementById('password-reset1').addEventListener('click', sendPasswordReset, false);
+	document.getElementById('password-reset2').addEventListener('click', sendPasswordReset, false);
+	
 }
 
 window.onload = function() {
