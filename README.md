@@ -8,3 +8,18 @@ If you have trouble connecting or using Firebase on your local computer, you may
 Next, if you haven't already, clone the repository onto your local computer and navigate in the Terminal to the project folder. From inside this folder, run the command ```firebase serve```.
 
 This will give you a url for the localhost that is this project. As long as the ```firebase serve``` is running in the command line, this site will be available to you, and the project should be able to connect to Firebase.
+
+
+## GULP
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run Gulp
+
+```bash
+gulp
+```
