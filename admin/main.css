@@ -112,6 +112,10 @@ form div {
 	clear: both;
 }
 
+form p {
+	display: block;
+}
+
 #sign-in-container,
 #signed-in-container,
 #user-details-container {

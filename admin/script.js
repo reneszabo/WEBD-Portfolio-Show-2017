@@ -20,9 +20,14 @@ var mapDataNames = [
 	['skill-set', 'skillSet'],
 	['portfolio-link', 'portfolioLink'],
 	['official-email', 'officialEmail'],
-	['social-media-1', 'socialMedia1'],
-	['social-media-2', 'socialMedia2'],
-	['social-media-3', 'socialMedia3']
+	['linkedin', 'linkedin'],
+	['github', 'github'],
+	['dribbble', 'dribbble'],
+	['instagram', 'instagram'],
+	['behance', 'behance'],
+	['twitter', 'twitter'],
+	['codepen', 'codepen'],
+	['facebook', 'facebook']
 ];
 
 /**

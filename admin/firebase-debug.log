@@ -3,12 +3,12 @@
 [debug] CLI Version:  3.2.1
 [debug] Platform:     darwin
 [debug] Node Version: v4.5.0
-[debug] Time:         Wed Mar 08 2017 14:37:19 GMT-0500 (EST)
+[debug] Time:         Wed Mar 08 2017 15:52:34 GMT-0500 (EST)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [info] Starting Firebase development server...
 [info] 
-[info] Project Directory: /Users/alisonhall/Sites/WEBD 352 Portfolio/Projects/WEBD Portfolio Show 2017
+[info] Project Directory: /Users/alisonhall/Sites/WEBD 352 Portfolio/Projects/WEBD Portfolio Show 2017/admin
 [info] Public Directory: ./
 [info] 
 [info] Server listening at: http://localhost:5000
