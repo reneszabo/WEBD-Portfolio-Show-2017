@@ -1,3 +1,14 @@
+language: node_js
+
+node_js:
+  - "node"
+
+before_install:
+  - npm install -g gulp
+
+install:
+  - npm install
+  -
 deploy:
   provider: pages
   skip_cleanup: true
