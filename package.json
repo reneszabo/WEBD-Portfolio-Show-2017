@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Humber WEBD 2017 class' Portfolio Show!",
   "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alisonhall/WEBD-Portfolio-Show-2017.git"
