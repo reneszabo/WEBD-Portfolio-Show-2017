@@ -9,6 +9,7 @@ before_install:
 install:
   - npm install
   - gulp build
+  - cp -r app/* .
 deploy:
   provider: pages
   skip_cleanup: true
