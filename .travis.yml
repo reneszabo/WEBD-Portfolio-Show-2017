@@ -9,6 +9,7 @@ before_install:
 install:
   - npm install
   - gulp build
+  - rm -rf * !(app)
   - cp -r app/* .
   - rm -rf app
 
