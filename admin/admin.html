@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Email/Password Authentication Example</title>
+	<script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+	<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+	<header>
+		<a href="https://alisonhall.github.io/WEBD-Portfolio-Show-2017/"><h1>Shift 2017</h1></a>
+	</header>
+	<h2>Class Bios and Info</h2>
+	<div id="sign-in-container">
+		<p>Sign in with your email and password</p>
+		<input type="text" id="email" name="email" placeholder="Email" />
+		<input type="password" id="password" name="password" placeholder="Password" />
+		<br>
+		<button type="submit" id="sign-in" name="signin">Sign In</button>
+		<button id="password-reset1" name="verify-email">Send Password Reset Email</button>
+	</div>
+	<div id="signed-in-container">
+		<span id="sign-in-status">Signed In As: <span id="current-user"></span></span>
+		<br>
+		<button id="sign-out" name="signin">Sign Out</button>
+		<button id="password-reset2" name="verify-email">Send Password Reset Email</button>
+	</div>
+	<!-- Container where we'll display the user details -->
+	<div id="user-details-container">
+		<div id="loading">Loading...</div>
+		<form id="account-details">
+			<div>
+				<label for="first-name">First Name:</label>
+				<input type="text" id="first-name" name="first-name">
+			</div>
+			<div>
+				<label for="last-name">Last Name:</label>
+				<input type="text" id="last-name" name="last-name">
+			</div>
+			<div>
+				<label for="photo-URL">Photo URL:</label>
+				<input type="text" id="photo-URL" name="photo-URL">
+			</div>
+			<div>
+				<label for="introduction">Introduction:</label>
+				<textarea name="introduction" id="introduction" cols="30" rows="10"></textarea>
+			</div>
+			<div>
+				<label for="skill-set">Skill Set:</label>
+				<input type="text" id="skill-set" name="skill-set">
+			</div>
+			<div>
+				<label for="portfolio-link">Portfolio Link:</label>
+				<input type="text" id="portfolio-link" name="portfolio-link">
+			</div>
+			<div>
+				<label for="official-email">Official Email:</label>
+				<input type="text" id="official-email" name="official-email">
+			</div>
+			<p>Enter url's for a max. of 3 from the following social media accounts:</p>
+			<div>
+				<label for="linkedin">LinkedIn:</label>
+				<input type="text" id="linkedin" name="linkedin">
+			</div>
+			<div>
+				<label for="github">GitHub:</label>
+				<input type="text" id="github" name="github">
+			</div>
+			<div>
+				<label for="dribbble">Dribbble:</label>
+				<input type="text" id="dribbble" name="dribbble">
+			</div>
+			<div>
+				<label for="instagram">Instagram:</label>
+				<input type="text" id="instagram" name="instagram">
+			</div>
+			<div>
+				<label for="behance">Behance:</label>
+				<input type="text" id="behance" name="behance">
+			</div>
+			<div>
+				<label for="twitter">Twitter:</label>
+				<input type="text" id="twitter" name="twitter">
+			</div>
+			<div>
+				<label for="codepen">Codepen:</label>
+				<input type="text" id="codepen" name="codepen">
+			</div>
+			<div>
+				<label for="facebook">Facebook:</label>
+				<input type="text" id="facebook" name="facebook">
+			</div>
+			<div class="user-buttons">
+				<button type="submit" id="save-data">Save</button>
+				<button id="cancel">Cancel</button>
+			</div>
+		</form>
+	</div>
+	<script src="script.js"></script>
+</body>
+
+</html>
+

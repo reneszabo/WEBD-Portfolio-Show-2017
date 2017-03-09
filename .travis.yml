@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - "node"
+
+before_install:
+  - npm install -g gulp
+
+install:
+  - npm install
+  - gulp build
+  - cp -r app/* .
+  - rm -rf app
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+#    all_branches: true
+    branch: master

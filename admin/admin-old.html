@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+</head>
+
+<body>
+	<h1>Admin</h1>
+
+	<a href="../index.html">Home</a>
+
+	<p>User Status: <span id="userStatus"></span></p> 
+
+	<button id="signout">Sign Out</button>
+
+	<h2>Sign Up</h2>
+	<form action="">
+		email:
+		<input id="signupEmail" type="email" placeholder="Email">
+		password:
+		<input id="signupPassword" type="password" placeholder="Password">
+		confirm password:
+		<input id="signupPassword2" type="password" placeholder="Password">
+		<button id="signupSubmit">Submit</button>
+	</form>
+
+	<h2>Sign In</h2>
+	<form action="">
+		email:
+		<input id="signinEmail" type="email" placeholder="Email">
+		password:
+		<input id="signinPassword" type="password" placeholder="Password">
+		<button id="signinSubmit">Submit</button>
+	</form>
+
+	<h2>Profile</h2>
+	<p>Name: <span id="profileName"></span></p>
+	<p>Email: <span id="profileEmail"></span></p>
+	<p>PhotoUrl: <span id="profilePhotoUrl"></span></p>
+	<p>EmailVerified: <span id="profileEmailVerified"></span></p>
+	<p>uid: <span id="profileUid"></span></p>
+
+	
+	<!-- <form action="">
+		
+	</form> -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="userFunctions.js"></script>
+</body>
+
+</html>
+

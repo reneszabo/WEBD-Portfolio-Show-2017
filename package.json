@@ -1,0 +1,25 @@
+{
+  "name": "WEBD-Portfolio-Show-2017",
+  "version": "1.0.0",
+  "description": "Humber WEBD 2017 class' Portfolio Show!",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"WARNING: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisonhall/WEBD-Portfolio-Show-2017.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alisonhall/WEBD-Portfolio-Show-2017/issues"
+  },
+  "homepage": "https://github.com/alisonhall/WEBD-Portfolio-Show-2017#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  }
+}
